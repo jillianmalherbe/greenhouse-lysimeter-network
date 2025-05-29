@@ -1,4 +1,4 @@
-Adafruit_Blinka==8.56.1.dev2
+#Adafruit_Blinka==8.56.1.dev2
 adafruit_circuitpython_scd30==2.2.14
 adafruit_circuitpython_seesaw==1.16.5
 boto3==1.37.16
@@ -10,3 +10,6 @@ RPi.GPIO==0.7.1
 rpi_lgpio==0.6
 smbus2==0.5.0
 ttkbootstrap==1.13.8
+pressure==0.5
+valve==0.0.0
+bleak==0.22.3
