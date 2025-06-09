@@ -10,8 +10,8 @@
 #include "model_handler.h"
 #include <bluetooth/mesh/sensor_types.h>
 
-#define GET_DATA_INTERVAL	2000
-#define GET_DATA_INTERVAL_QUICK 3000
+#define GET_DATA_INTERVAL	1000
+#define GET_DATA_INTERVAL_QUICK 500
 #define MOTION_TIMEOUT		K_SECONDS(60)
 
 /* Replace these with your actual NetKey/AppKey indices and TTL */
@@ -77,23 +77,6 @@ static void init_sensor_table(void)
 
 static bool is_occupied;
 static struct k_work_delayable motion_timeout_work;
-
-
-// // List of sensors to query:
-// static struct sensor_entry sensor_table[] = {
-//     { BT_MESH_PROP_ID_PRESENT_DEV_OP_TEMP, &bt_mesh_sensor_present_dev_op_temp, "Chip Temp", {0}, false },
-//     { BT_MESH_PROP_ID_REL_RUNTIME_IN_A_DEV_OP_TEMP_RANGE, &bt_mesh_sensor_rel_runtime_in_a_dev_op_temp_range, "Rel Runtime Temp", {0}, false },
-//     { BT_MESH_PROP_ID_TIME_SINCE_PRESENCE_DETECTED, &bt_mesh_sensor_time_since_presence_detected, "Time Since Presence", {0}, false },
-//     { BT_MESH_PROP_ID_PRESENT_AMB_LIGHT_LEVEL, &bt_mesh_sensor_present_amb_light_level, "Ambient Light", {0}, false },
-//     { BT_MESH_PROP_ID_TIME_SINCE_MOTION_SENSED, &bt_mesh_sensor_time_since_motion_sensed, "Time Since Motion", {0}, false },
-//     { BT_MESH_PROP_ID_PEOPLE_COUNT, &bt_mesh_sensor_people_count, "People Count", {0}, false },
-//     { BT_MESH_PROP_ID_PRESENT_AMB_TEMP, &bt_mesh_sensor_present_amb_temp, "Sensor Temperature", {0}, false },
-//     { BT_MESH_PROP_ID_PRESSURE, &bt_mesh_sensor_pressure, "Sensor Pressure", {0}, false },
-// 	{ BT_MESH_PROP_ID_PRESENT_AMB_TEMP, &bt_mesh_sensor_present_amb_temp, "Sensor Temperature", {0}, false },
-// };
-
-
-// #define SENSOR_COUNT ARRAY_SIZE(sensor_table)
 
 
 static void motion_timeout(struct k_work *work)
