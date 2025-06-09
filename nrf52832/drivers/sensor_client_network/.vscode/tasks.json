@@ -1,0 +1,25 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "nrf-connect-build",
+			"config": "c:\\greenhouse-lysimeter-network\\nrf52832\\drivers\\sensor_client_network\\build",
+			"runCmake": false,
+			"clean": true,
+			"problemMatcher": [
+				"$gcc",
+				"$cmake",
+				"$kconfig",
+				"$kconfig_syntax",
+				"$kconfig_syntax_files",
+				"$dts",
+				"$dts_syntax"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"label": "nRF Connect: Build [clean]: sensor_client_network/build (active)"
+		}
+	]
+}
