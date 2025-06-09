@@ -103,17 +103,20 @@ static void motion_timeout(struct k_work *work)
 }
 
 static void sensor_cli_data_cb(struct bt_mesh_sensor_cli *cli,
-                               struct bt_mesh_msg_ctx *ctx,
+                               struct bt_mesh_msg_ctx   *ctx,
                                const struct bt_mesh_sensor_type *sensor,
                                const struct bt_mesh_sensor_value *value)
 {
     for (int i = 0; i < SENSOR_COUNT; i++) {
-        if (sensor->id == sensor_table[i].type->id) {
+        /* Match on both property ID *and* element/server address */
+        if (sensor_table[i].type->id == sensor->id
+            && sensor_table[i].ctx.addr  == ctx->addr) {
             sensor_table[i].value = *value;
             sensor_table[i].valid = true;
-            printk("Received %s (id=0x%04X)\n",
-                sensor_table[i].name,
-                sensor->id);
+            printk("Received %s from 0x%04x (id=0x%04X)\n",
+                   sensor_table[i].name,
+                   ctx->addr,
+                   sensor->id);
             break;
         }
     }
