@@ -114,17 +114,19 @@ irradiance_data = getWattsY(wav, light_data, dark_data, inttime, cal_path, 100)
 print('Irradiance data:', irradiance_data)
 
 # Plot Spectrum
-data = np.array(irradiance_data)
+#data = np.array(irradiance_data)
 # Split into wavelength and count arrays
-wavelengths = data[:, 0]
-irradiance = data[:, 1]
+#wavelengths = data[:, 0]
+#irradiance = data[:, 1]
+wavelengths = irradiance_data['X']
+irradiance = irradiance_data['Y']
 
 # Create the plot
 plt.figure(figsize=(10, 5))
 plt.plot(wavelengths, irradiance, label='Spectrum', linewidth=1)
 plt.xlabel('Wavelength (nm)')
-plt.ylabel('Irradiance')
-plt.title('Spectrometer Data')
+plt.ylabel('Irradiance (W/m^2)')
+plt.title('Spectrometer Irradiance Spectrum')
 plt.grid(True)
 
 plt.xlim(wavelengths.min(), wavelengths.max())
