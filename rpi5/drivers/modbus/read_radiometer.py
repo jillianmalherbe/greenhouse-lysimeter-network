@@ -163,11 +163,17 @@ def read_sensor_data():
 def toggle_heater(state: bool):
     """
     Toggles the heater on (True) or off (False).
-    Heater Coil Register 0
     """
+    if bool==True:
+        state = 1.0
+        status = 'ON'
+    else:
+        state = 0.0
+        status = 'OFF'
+
     try:
-        client.write_register(HEATER_STATUS, 1, number_of_decimals=0, functioncode=6, signed=False)
-        print(f"Heater set to: {'ON' if state else 'OFF'}")
+        client.write_float(HEATER_STATUS, state, byteorder=0)
+        print(f"Heater set to: {status}")
     except serial.SerialException as e:
         print(f"Serial port error: {e}. Cannot toggle heater.")
     except minimalmodbus.ModbusException as e:
@@ -185,7 +191,7 @@ if __name__ == "__main__":
     # time.sleep(5)
     # read_sensor_data()
 
-    # print("\n--- Toggling Heater OFF ---")
-    # toggle_heater(False)
-    # time.sleep(2)
+    print("\n--- Toggling Heater OFF ---")
+    toggle_heater(False)
+    time.sleep(2)
     # read_sensor_data()
