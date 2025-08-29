@@ -4,6 +4,7 @@ import board
 
 import adafruit_lps28
 import adafruit_scd4x
+import datetime
 
 i2c = board.I2C()
 
@@ -17,6 +18,8 @@ print("Sensor Readings:")
 print("-" * 40)
 
 while True:
+    print(f"Timestamp: {datetime.datetime.now()}")
+
     if lps28_sensor.data_ready:
         print(f"LPS28 Pressure: {lps28_sensor.pressure:.1f} hPa")
         print(f"LPS28 Temperature: {lps28_sensor.temperature:.1f} degrees Celcius")
