@@ -1,0 +1,52 @@
+// To get started, press Ctrl+Space to bring up the completion menu and view the available nodes.
+// For more help, browse the DeviceTree documentation at https://docs.zephyrproject.org/latest/guides/dts/index.html
+
+&i2c0 {
+    status = "okay";
+    pinctrl-0 = <&i2c0_default>;
+	pinctrl-1 = <&i2c0_sleep>;
+    pinctrl-names = "default", "sleep";
+    mysensor: mysensor@5A{
+        compatible = "i2c-device";
+        status = "okay";
+        reg = < 0x5A >;
+        zephyr,deferred-init;
+    };
+};
+
+&pinctrl {
+	/omit-if-no-ref/ i2c0_default: i2c0_default {
+		group1  {
+			psels = <NRF_PSEL(TWIM_SCL, 0, 27)>,
+					<NRF_PSEL(TWIM_SDA, 0, 26)>;
+		};
+	};
+
+	/omit-if-no-ref/ i2c0_sleep: i2c0_sleep {
+		group1  {
+			psels = <NRF_PSEL(TWIM_SCL, 0, 27)>,
+					<NRF_PSEL(TWIM_SDA, 0, 26)>;
+			low-power-enable;
+		};
+	};
+};
+
+/ {
+	zephyr,user {
+		io-channels = <&adc 0>;
+	};
+};
+
+&adc {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "okay";
+	channel@0 {
+		reg = <0>;
+		zephyr,gain = "ADC_GAIN_1_6";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+		zephyr,input-positive = <NRF_SAADC_AIN0>; /* P0.02 for nRF52xx, P0.04 for nRF5340 */
+		zephyr,resolution = <12>;
+	};
+};
